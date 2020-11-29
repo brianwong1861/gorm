@@ -1,13 +1,14 @@
 package gorm_test
 
 import (
-	"testing"
-	"os"
 	"crypto/md5"
 	"fmt"
-	"time"
-	"github.com/e421083458/gorm"
 	"log"
+	"os"
+	"testing"
+	"time"
+
+	"github.com/brianwong1861/gorm"
 )
 
 func TestLoggerCtx(t *testing.T) {
@@ -31,7 +32,7 @@ func TestLoggerCtx(t *testing.T) {
 		//Generating context information
 		unixTime := fmt.Sprint(time.Now().Unix())
 		traceID := fmt.Sprintf("%x", md5.Sum([]byte(unixTime)))
-		ctxInfo:= "\n[context] trace_id="+traceID
+		ctxInfo := "\n[context] trace_id=" + traceID
 		builder := DB.SetCtx(ctxInfo)
 		if i > 5 {
 			builder = builder.Where("Age = ?", i)
@@ -44,11 +45,10 @@ func TestLoggerCtx(t *testing.T) {
 		}
 
 		//Verify context information
-		ctxTmp,_:=builder.GetCtx()
-		ctxInfo2,_:=ctxTmp.(string)
-		if ctxInfo!=ctxInfo2{
+		ctxTmp, _ := builder.GetCtx()
+		ctxInfo2, _ := ctxTmp.(string)
+		if ctxInfo != ctxInfo2 {
 			t.Fatal("get context error")
 		}
 	}
 }
-

@@ -39,10 +39,10 @@ type DB struct {
 //       db, err := gorm.Open("mysql", "user:password@/dbname?charset=utf8&parseTime=True&loc=Local")
 //     }
 // GORM has wrapped some drivers, for easier to remember driver's import path, so you could import the mysql driver with
-//    import _ "github.com/e421083458/gorm/dialects/mysql"
-//    // import _ "github.com/e421083458/gorm/dialects/postgres"
-//    // import _ "github.com/e421083458/gorm/dialects/sqlite"
-//    // import _ "github.com/e421083458/gorm/dialects/mssql"
+//    import _ "github.com/brianwong1861/gorm/dialects/mysql"
+//    // import _ "github.com/brianwong1861/gorm/dialects/postgres"
+//    // import _ "github.com/brianwong1861/gorm/dialects/sqlite"
+//    // import _ "github.com/brianwong1861/gorm/dialects/mssql"
 func Open(dialect string, args ...interface{}) (db *DB, err error) {
 	if len(args) == 0 {
 		err = errors.New("invalid database source")
@@ -161,12 +161,12 @@ func (s *DB) LogCtx(enable bool) *DB {
 
 // SetCtx set query context
 func (s *DB) SetCtx(v interface{}) *DB {
-	s=s.Set("trace_context",v)
+	s = s.Set("trace_context", v)
 	return s
 }
 
 // GetCtx Get query context
-func (s *DB) GetCtx() (value interface{}, ok bool)  {
+func (s *DB) GetCtx() (value interface{}, ok bool) {
 	return s.Get("trace_context")
 }
 
@@ -799,9 +799,9 @@ func (s *DB) clone() *DB {
 }
 
 func (s *DB) print(v ...interface{}) {
-	if s.logCtx == 2{
+	if s.logCtx == 2 {
 		s.logger.CtxPrint(s, v...)
-	}else{
+	} else {
 		s.logger.Print(v...)
 	}
 }
